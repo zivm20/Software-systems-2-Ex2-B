@@ -111,7 +111,7 @@ using namespace ariel;
 
     void Page::show(){
         for (auto i = lines.begin(); i != lines.end(); ++i) {
-            cout << i->second.read(0,MAX_LINE_LEN) << endl;
+            cout << i->first << ": " << i->second.read(0,MAX_LINE_LEN) << endl;
         }
     }
 

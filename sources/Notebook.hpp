@@ -8,7 +8,7 @@
 
 namespace ariel{
     const int MAX_LINE_LEN = 100;
-    const int MAX_CHAR_VAL = 126, MIN_CHAR_VAL = 33;
+    const int MAX_CHAR_VAL = 126, MIN_CHAR_VAL = 32;
     class Line{
         private:
             std::array<char,MAX_LINE_LEN> content;

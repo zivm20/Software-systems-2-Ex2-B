@@ -14,18 +14,12 @@ SOURCES=$(wildcard $(SOURCE_PATH)/*.cpp)
 HEADERS=$(wildcard $(SOURCE_PATH)/*.hpp)
 OBJECTS=$(subst sources/,objects/,$(subst .cpp,.o,$(SOURCES)))
 
-run: test1 test2 test3 test
+run: test
 
-test1: TestRunner.o StudentTest1.o  $(OBJECTS)
+test: TestRunner.o StudentTest1.o StudentTest2.o StudentTest3.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-test2: TestRunner.o StudentTest2.o  $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-test3: TestRunner.o StudentTest3.o  $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-test: TestRunner.o Test.o $(OBJECTS)
+demo: demo.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o: %.cpp $(HEADERS)
@@ -43,11 +37,14 @@ StudentTest2.cpp:  # Orel Zelmer
 StudentTest3.cpp:  # Ofri Tavor
 	curl https://raw.githubusercontent.com/Unusual55/CPP_Ex2_a/main/Test.cpp > $@
 
+
+
+
 tidy:
 	clang-tidy $(SOURCES) $(TIDY_FLAGS) --
 
 valgrind: test
-	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test1 2>&1 | { egrep "lost| at " || true; }
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test 2>&1 | { egrep "lost| at " || true; }
 
 clean:
 	rm -f $(OBJECTS) *.o test* 
