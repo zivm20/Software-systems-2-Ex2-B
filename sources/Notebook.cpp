@@ -9,10 +9,13 @@ using namespace ariel;
 
 #pragma region Line
     Line::Line():content(){
-        content.fill('_');
+        content.fill(NOTEBOOK_SPACE);
     }
     void Line::write(int col, string txt){
         for(size_t i = 0; i<txt.length(); i++){
+            if(i+size_t(col) < 0){
+                throw std::invalid_argument("Invalid Write");
+            }
             content.at(i+size_t(col)) = txt[i];
         }
     }
@@ -121,6 +124,9 @@ using namespace ariel;
             throw std::invalid_argument("Out of row bounds!");
         }
 
+        if(row<0){
+            throw std::invalid_argument("Invalid row Number");
+        }
         for(int i=0; (i < len && Direction::Vertical == dir) || (i<1 && Direction::Horizontal == dir); i++ ){
             lines.insert(pair<int,Line>(i+row,Line()));
         }
@@ -152,6 +158,9 @@ using namespace ariel;
         pages.at(page).show();
     }
     void Notebook::generatePages(int page){
+        if(page<0){
+            throw std::invalid_argument("Invalid page Number");
+        }
         pages.insert(pair<int,Page>(page,Page()));
     }
     Notebook::~Notebook(){
