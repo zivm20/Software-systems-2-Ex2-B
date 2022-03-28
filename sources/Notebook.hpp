@@ -9,7 +9,7 @@
 namespace ariel{
     const int MAX_LINE_LEN = 100;
     const int MAX_CHAR_VAL = 126, MIN_CHAR_VAL = 32;
-    const char SPACE = ' ', NOTEBOOK_SPACE = '_';
+    const char SPACE = ' ', NOTEBOOK_SPACE = '_',NOTEBOOK_ERASE_CHAR='~';
     class Line{
         private:
             std::array<char,MAX_LINE_LEN> content;

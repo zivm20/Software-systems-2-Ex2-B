@@ -28,7 +28,7 @@ using namespace ariel;
     }
     void Line::erase(int col, int len){
         for(size_t i = 0; i<len; i++){
-            content.at(i+size_t(col)) = '~';
+            content.at(i+size_t(col)) = NOTEBOOK_ERASE_CHAR;
         }
     }
     void Line::show(){
@@ -52,7 +52,7 @@ using namespace ariel;
     void Page::write(int row, int col, Direction dir, string txt){
         generateRows(row,col,dir,txt.length());
         for(char c:txt){
-            if(c < MIN_CHAR_VAL || c > MAX_CHAR_VAL){
+            if(c < MIN_CHAR_VAL || c > MAX_CHAR_VAL || c == NOTEBOOK_ERASE_CHAR){
                 throw std::invalid_argument("Invalid character Write");
             }
         }
@@ -107,7 +107,7 @@ using namespace ariel;
         }
         else{
             //erase horizontally
-            lines.at(size_t(row)).write(col,string(size_t(len),'~'));
+            lines.at(size_t(row)).write(col,string(size_t(len),NOTEBOOK_ERASE_CHAR));
         }
 
     }
